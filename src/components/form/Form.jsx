@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Checkboxes from "./Checkboxes";
 import RadioButtons from "./RadioButtons";
+import PropTypes from "prop-types";
 
 const initalFormData = {
   color: "",
@@ -10,7 +11,7 @@ const initalFormData = {
   email: "",
 };
 
-export default function Form() {
+export default function Form({handleAnswers}) {
   const [formData, setFormData] = useState(initalFormData);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export default function Form() {
     event.preventDefault();
 
     console.log(formData);
+    handleAnswers(formData)
 
     // Reset form
     setFormData(initalFormData);
@@ -99,3 +101,7 @@ export default function Form() {
     </form>
   );
 }
+
+Form.propTypes = {
+  handleAnswers: PropTypes.func
+};
