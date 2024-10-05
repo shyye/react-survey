@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checkboxes from "./Checkboxes";
 import RadioButtons from "./RadioButtons";
 
@@ -13,6 +13,10 @@ const initalFormData = {
 export default function Form() {
   const [formData, setFormData] = useState(initalFormData);
 
+  useEffect(() => {
+    console.log("Form data after reset:", formData);
+  }, [formData]);
+
   const handleChange = (event) => {
     const name = event.target.name;
     let value = event.target.value;
@@ -22,7 +26,7 @@ export default function Form() {
     // Otherwise add value to formData
     if (type === "checkbox" && name === "spend-time") { 
       
-      let spendTimeList = formData["spend-time"]
+      let spendTimeList = [...formData["spend-time"]]
       const isChecked = event.target.checked
       const size = spendTimeList.length
       const isValuePresent = spendTimeList.includes(value)
@@ -50,9 +54,6 @@ export default function Form() {
 
     // Reset form
     setFormData(initalFormData);
-
-    // console.log(event);
-    console.log(formData);
   };
 
   return (
@@ -60,11 +61,11 @@ export default function Form() {
       <h2>Tell us what you think about your rubber duck!</h2>
       <div className="form__group radio">
         <h3>How do you rate your rubber duck colour?</h3>
-        <RadioButtons handleChange={handleChange} />
+        <RadioButtons handleChange={handleChange} colorValue={formData.color}/>
       </div>
       <div className="form__group">
         <h3>How do you like to spend time with your rubber duck</h3>
-        <Checkboxes handleChange={handleChange} spendTimeList={formData["spend-time"]}/>
+        <Checkboxes handleChange={handleChange} spendTimeList={[...formData["spend-time"]]}/>
       </div>
       <label>
         What else have you got to say about your rubber duck?

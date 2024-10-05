@@ -10,7 +10,7 @@ export default function Checkboxes({handleChange, spendTimeList}) {
             type="checkbox"
             value="swimming"
             onChange={handleChange}
-            // checked={spendTimeList.includes("swimming")}
+            checked={spendTimeList.includes("swimming")}
           />
           Swimming
         </label>
@@ -22,7 +22,7 @@ export default function Checkboxes({handleChange, spendTimeList}) {
             type="checkbox"
             value="bathing"
             onChange={handleChange}
-            // checked={spendTimeList.includes("bathing")}
+            checked={spendTimeList.includes("bathing")}
           />
           Bathing
         </label>
@@ -34,6 +34,7 @@ export default function Checkboxes({handleChange, spendTimeList}) {
             type="checkbox"
             value="chatting"
             onChange={handleChange}
+            checked={spendTimeList.includes("chatting")}
           />
           Chatting
         </label>
@@ -45,6 +46,7 @@ export default function Checkboxes({handleChange, spendTimeList}) {
             type="checkbox"
             value="noTime"
             onChange={handleChange}
+            checked={spendTimeList.includes("noTime")}
           />
           I don&apos;t like to spend time with it
         </label>
