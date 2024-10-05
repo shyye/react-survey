@@ -29,7 +29,7 @@ function Survey() {
   function editAnswer(answerId) {
     const answerData = answers[answerId];
     setFormData(answerData)
-    setAnswerIdToEdit(answerId)   // Could probably be refactores
+    setAnswerIdToEdit(answerId)   // Could be refactored to avoid id as parameter
     setEditMode(true)
   }
 
@@ -46,11 +46,19 @@ function Survey() {
     setAnswers(newArray);
   }
 
+  function deleteAnswer(answerId) {
+    setAnswers(
+      answers.filter((answer, i) =>
+        i !== answerId
+      )
+    );
+  }
+
   return (
     <main className="survey">
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
-        <AnswersList answersList={answers} editAnswer={editAnswer} />
+        <AnswersList answersList={answers} editAnswer={editAnswer} deleteAnswer={deleteAnswer} />
       </section>
       <section className="survey__form">
         <Form

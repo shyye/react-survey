@@ -3,7 +3,7 @@ import AnswersItem from "./AnswersItem";
 export default function AnswersList(props) {
   console.log("Inside AnswersList: ", props);
 
-  const { answersList, editAnswer } = props;
+  const { answersList, editAnswer, deleteAnswer } = props;
 
   return (
     <ul>
@@ -12,6 +12,7 @@ export default function AnswersList(props) {
           answerItem={answerItem}
           key={i}
           editAnswer={editAnswer}
+          deleteAnswer={deleteAnswer}
           answerId={i}
         />
       ))}

@@ -22,11 +22,8 @@ function ItemsList({ list }) {
 export default function AnswersItem({
   // Feel free to change this props names to what suits you best
   // Rememeber here we're destructuring answerItem, which is the prop name that we've passed
-  answerItem: { username, color, 'spend-time': timeSpent, review }, editAnswer, answerId
-}) {
-  // console.log("key " +answerId);
-  // console.log("key " +editAnswer);
-  
+  answerItem: { username, color, 'spend-time': timeSpent, review }, editAnswer, deleteAnswer, answerId
+}) {  
   return (
     <li>
       <article className="answer">
@@ -44,6 +41,7 @@ export default function AnswersItem({
           <span className="answer__line">{review}</span>
         </p>
         <button onClick={() => editAnswer(answerId)}>Edit</button>
+        <button onClick={() => deleteAnswer(answerId)}>Delete</button>
       </article>
     </li>
   );
