@@ -1,18 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Checkboxes from "./Checkboxes";
 import RadioButtons from "./RadioButtons";
 import PropTypes from "prop-types";
 
-const initalFormData = {
-  color: "",
-  "spend-time": [],
-  review: "",
-  username: "",
-  email: "",
-};
-
-export default function Form({handleAnswers}) {
-  const [formData, setFormData] = useState(initalFormData);
+export default function Form({formData, setFormData, resetFormData, handleAnswers, isEditMode, updateAnswer}) {
 
   useEffect(() => {
     console.log("Form data after reset:", formData);
@@ -52,10 +43,15 @@ export default function Form({handleAnswers}) {
     event.preventDefault();
 
     console.log(formData);
-    handleAnswers(formData)
 
+    if (isEditMode) {
+      updateAnswer(formData)
+    } else {
+      handleAnswers(formData)
+    }
+    
     // Reset form
-    setFormData(initalFormData);
+    resetFormData()
   };
 
   return (
@@ -103,5 +99,10 @@ export default function Form({handleAnswers}) {
 }
 
 Form.propTypes = {
-  handleAnswers: PropTypes.func
+  formData: PropTypes.object,
+  setFormData: PropTypes.func,
+  resetFormData: PropTypes.func,
+  handleAnswers: PropTypes.func,
+  isEditMode: PropTypes.bool,
+  updateAnswer: PropTypes.object
 };

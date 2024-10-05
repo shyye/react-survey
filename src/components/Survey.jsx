@@ -1,24 +1,66 @@
 import { useState } from "react";
-import Form from "./form/Form"
-import AnswersList from "./AnswersList"
+import Form from "./form/Form";
+import AnswersList from "./AnswersList";
+
+const initalFormData = {
+  color: "",
+  "spend-time": [],
+  review: "",
+  username: "",
+  email: "",
+};
 
 function Survey() {
   const [open, setOpen] = useState(false); //Ignore this state
 
-  const [answers, setAnswers] = useState([])
+  const [formData, setFormData] = useState(initalFormData);
+  const [answers, setAnswers] = useState([]);
+  const [answersIdToEdit, setAnswerIdToEdit] = useState(-1);
+  const [isEditMode, setEditMode] = useState(false)
+
+  function resetFormData() {
+    setFormData(initalFormData)
+  }
 
   function handleAnswers(newAnswers) {
-    setAnswers([...answers, newAnswers])    
+    setAnswers([...answers, newAnswers]);
+  }
+
+  function editAnswer(answerId) {
+    const answerData = answers[answerId];
+    setFormData(answerData)
+    setAnswerIdToEdit(answerId)   // Could probably be refactores
+    setEditMode(true)
+  }
+
+  function updateAnswer(formData) {
+    const newArray = answers.map((answer, i) => {
+      if (i === answersIdToEdit) {
+        // Replace with updated form data
+        return formData;
+      } else {
+        // Otherwise return old answer
+        return answer;
+      }
+    });
+    setAnswers(newArray);
   }
 
   return (
     <main className="survey">
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
-        <AnswersList answersList={answers}/>
+        <AnswersList answersList={answers} editAnswer={editAnswer} />
       </section>
       <section className="survey__form">
-        <Form handleAnswers={handleAnswers}/>
+        <Form
+          formData={formData}
+          resetFormData={resetFormData}
+          setFormData={setFormData}
+          handleAnswers={handleAnswers}
+          isEditMode={isEditMode}
+          updateAnswer={updateAnswer}
+        />
       </section>
     </main>
   );
